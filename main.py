@@ -45,8 +45,6 @@ transaction_text_widget = tk.Text(win, height=10, width=48)
 user = MoneyManager()
 
 # ---------- Button Handlers for Login Screen ----------
-
-
 def clear_pin_entry(event):
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
     pin_number_var.set('')
@@ -106,9 +104,8 @@ def log_in(event):
                 ))
                 counter += 1
             remove_all_widgets()
+
 # ---------- Button Handlers for User Screen ----------
-
-
 def save_and_log_out():
     '''Function  to overwrite the user file with the current state of
        the user object (i.e. including any new transactions), remove

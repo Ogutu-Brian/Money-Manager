@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import (messagebox, StringVar, Label, LEFT,
-                     Button, OptionMenu, Scrollbar)
+                     DISABLED,NORMAL, Button, OptionMenu, Scrollbar)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -287,34 +287,11 @@ def create_user_screen():
     scrollbar = Scrollbar(win, command=transaction_text_widget.yview)
     scrollbar.grid(row=4, column=4, sticky='nsew')
     transaction_text_widget['yscrollcommand'] = scrollbar.set
-    # ----- Row 1 -----
-
-    # Account number label here
-
-    # Balance label here
-
-    # Log out button here
-
-    # ----- Row 2 -----
-
-    # Amount label here
-
-    # Amount entry here
-
-    # Deposit button here
-
+    transaction_text_widget.config(state=DISABLED)
     # NOTE: Bind Deposit and Withdraw buttons via the command attribute to the relevant deposit and withdraw
     #       functions in this file. If we "BIND" these buttons then the button being pressed keeps looking as
     #       if it is still pressed if an exception is raised during the deposit or withdraw operation, which is
     #       offputting.
-
-    # ----- Row 3 -----
-    # Entry type label here
-
-    # Entry drop list here
-
-    # Add entry button here
-
     # ----- Row 4 -----
 
     # Declare scrollbar (text_scrollbar) here (BEFORE transaction text widget)

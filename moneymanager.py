@@ -1,3 +1,6 @@
+item_types = ["food", "rent", "bills", "entertainment", "other"]
+
+
 class MoneyManager(object):
     def __init__(self):
         '''Constructor to set username to '', pin_number to an empty string,
@@ -15,7 +18,6 @@ class MoneyManager(object):
             amount = float(amount)
         except:
             print("The amont cannot be cast to float")
-        item_types = ["food", "rent", "bills", "entertainment", "other"]
         if(entry_type.lower() not in item_types and entry_type.lower() != 'deposit'):
             print("The item type is invalid")
         elif(entry_type.lower() == "deposit"):

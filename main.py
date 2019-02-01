@@ -1,12 +1,12 @@
 import tkinter as tk
-from tkinter import (messagebox, StringVar, Label, LEFT, Button)
+from tkinter import (messagebox, StringVar, Label, LEFT, Button, OptionMenu)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from collections import defaultdict
 from pprint import pprint
 import matplotlib.pyplot as plt
-from moneymanager import MoneyManager
+from moneymanager import MoneyManager, item_types
 
 win = tk.Tk()
 # The user number and associated variable
@@ -45,6 +45,8 @@ transaction_text_widget = tk.Text(win, height=10, width=48)
 user = MoneyManager()
 
 # ---------- Button Handlers for Login Screen ----------
+
+
 def clear_pin_entry(event):
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
     pin_number_var.set('')
@@ -104,8 +106,11 @@ def log_in(event):
                 ))
                 counter += 1
             remove_all_widgets()
+            create_user_screen()
 
 # ---------- Button Handlers for User Screen ----------
+
+
 def save_and_log_out():
     '''Function  to overwrite the user file with the current state of
        the user object (i.e. including any new transactions), remove
@@ -255,11 +260,28 @@ def create_user_screen():
     global amount_label
     global transaction_text_widget
     global balance_var
-
+    win.geometry('600x660')
     # ----- Row 0 -----
-
     # FedUni Banking label here. Font size should be 24.
-
+    Label(text="FedUni Money Manager", font=(
+        "Helvetica", 22)).grid(row=0, columnspan=5)
+    Label(text="User Number:"+" "+user.user_number,
+          font=("Helvetica")).grid(row=1, column=0)
+    Label(text="Balance: $"+user.balance,
+          font=("Helvetica")).grid(row=1, column=2)
+    Label(text="AMount ($)", font=("Helvetica")).grid(row=2, column=0)
+    Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
+    logout_button = Button(text="Log Out", width=8, height=4)
+    logout_button.grid(row=1, column=3)
+    deposit_button = Button(text="Deposit", width=8, height=4)
+    deposit_button.grid(row=2, column=3)
+    entry_button = Button(text="Add Entry", width=8, height=4)
+    entry_button.grid(row=3, column=3)
+    amount_entry.grid(row=2, column=1)
+    tkVar.set("Choose Entry")
+    choices = set(item_types)
+    item_menu = OptionMenu(win, tkVar, *choices)
+    item_menu.grid(row=3, column=1)
     # ----- Row 1 -----
 
     # Account number label here

@@ -11,9 +11,6 @@ import matplotlib.pyplot as plt
 from moneymanager import MoneyManager
 
 win = tk.Tk()
-win.geometry('540x640')
-win.title('FedUni Money Manager')
-
 # The user number and associated variable
 user_number_var = tk.StringVar()
 
@@ -196,45 +193,59 @@ def plot_spending_graph():
 
 
 # ---------- UI Drawing Functions ----------
-
 def create_login_screen():
     '''Function to create the login screen.'''
-
+    win.geometry('500x660')
+    win.winfo_toplevel().title('FedUni Money Manager')
     # ----- Row 0 -----
-
     # 'FedUni Money Manager' label here. Font size is 28.
-
+    Label(text="FedUni Money Manager", font=("Helvetica", 28)).grid(
+        row=0, column=0, columnspan=3)
     # ----- Row 1 -----
-
     # Acount Number / Pin label here
-
     # Account number entry here
-
     # Account pin entry here
-
+    Label(text="User Number/ PIN", font=("Helvetica", 15),
+          justify=LEFT).grid(row=1, column=0)
+    user_number_entry.grid(row=1, column=1)
+    user_pin_entry.grid(row=1, column=2)
     # ----- Row 2 -----
-
     # Buttons 1, 2 and 3 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
-
+    button1 = Button(text="1", width=8, height=4)
+    button1.grid(row=2, column=0)
+    button2 = Button(text="2", width=8, height=4)
+    button2.grid(row=2, column=1)
+    button3 = Button(text="3", width=8, height=4)
+    button3.grid(row=2, column=2)
+    button7 = Button(text="7", width=8, height=4)
     # ----- Row 3 -----
-
     # Buttons 4, 5 and 6 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
-
+    button4 = Button(text="4", width=8, height=4)
+    button4.grid(row=3, column=0)
+    button5 = Button(text="5", width=8, height=4)
+    button5.grid(row=3, column=1)
+    button6 = Button(text="6", width=8, height=4)
+    button6.grid(row=3, column=2)
     # ----- Row 4 -----
-
     # Buttons 7, 8 and 9 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
-
+    button7.grid(row=4, column=0)
+    button8 = Button(text="8", width=8, height=4)
+    button8.grid(row=4, column=1)
+    button9 = Button(text="9", width=8, height=4)
+    button9.grid(row=4, column=2)
     # ----- Row 5 -----
-
     # Cancel/Clear button here. 'bg' and 'activebackground' should be 'red'. But calls 'clear_pin_entry' function.
-
     # Button 0 here
-
     # Login button here. 'bg' and 'activebackground' should be 'green'). Button calls 'log_in' function.
-
     # ----- Set column & row weights -----
-
     # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
+    cancel_button = Button(text="Cancel/Clear", width=8,
+                           height=4, command=win.destroy, bg="red")
+    cancel_button.grid(row=5, column=0)
+    button0 = Button(text="0", width=8, height=4)
+    button0.grid(row=5, column=1)
+    login_button = Button(text="Log In", width=8, height=4, bg="green")
+    login_button.grid(row=5, column=2)
 
 
 def create_user_screen():

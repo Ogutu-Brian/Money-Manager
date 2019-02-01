@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import (messagebox, StringVar, Label, LEFT, Button, OptionMenu,Scrollbar)
+from tkinter import (messagebox, StringVar, Label, LEFT,
+                     Button, OptionMenu, Scrollbar)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -282,10 +283,10 @@ def create_user_screen():
     choices = set(item_types)
     item_menu = OptionMenu(win, tkVar, *choices)
     item_menu.grid(row=3, column=1)
-    transaction_text_widget.grid(row=4,column=0,columnspan=5)
-    scrollbar = Scrollbar(win,command=transaction_text_widget.yview)
-    scrollbar.grid(row=4,column=4,sticky='nsew')
-    transaction_text_widget['yscrollcommand']=scrollbar.set
+    transaction_text_widget.grid(row=4, column=0, columnspan=5)
+    scrollbar = Scrollbar(win, command=transaction_text_widget.yview)
+    scrollbar.grid(row=4, column=4, sticky='nsew')
+    transaction_text_widget['yscrollcommand'] = scrollbar.set
     # ----- Row 1 -----
 
     # Account number label here

@@ -25,7 +25,7 @@ pin_number_var = tk.StringVar()
 pin_number_var.set('7890')
 
 # Modify the following to display a series of * rather than the pin ie **** not 1234
-user_pin_entry = tk.Entry(win, text='PIN Number', textvariable=pin_number_var)
+user_pin_entry = tk.Entry(win, text='PIN Number', textvariable=pin_number_var,show="*")
 
 # set the user file by default to an empty string
 user_file = ''
@@ -217,7 +217,6 @@ def create_login_screen():
     button2.grid(row=2, column=1)
     button3 = Button(text="3", width=8, height=4)
     button3.grid(row=2, column=2)
-    button7 = Button(text="7", width=8, height=4)
     # ----- Row 3 -----
     # Buttons 4, 5 and 6 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button4 = Button(text="4", width=8, height=4)
@@ -228,6 +227,7 @@ def create_login_screen():
     button6.grid(row=3, column=2)
     # ----- Row 4 -----
     # Buttons 7, 8 and 9 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
+    button7 = Button(text="7", width=8, height=4)
     button7.grid(row=4, column=0)
     button8 = Button(text="8", width=8, height=4)
     button8.grid(row=4, column=1)

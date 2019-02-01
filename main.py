@@ -65,7 +65,6 @@ def handle_pin_button(event):
     button_argument = event.widget['text']
     if(len(pin_string) < 4):
         user_pin_entry.insert(len(pin_string), button_argument)
-    print(pin_number_var.get())
 
 
 def log_in(event):

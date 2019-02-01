@@ -1,7 +1,5 @@
 import tkinter as tk
-from tkinter import *
-from tkinter import messagebox
-
+from tkinter import (messagebox, StringVar, Label, LEFT, Button)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -26,7 +24,7 @@ pin_number_var.set('7890')
 
 # Modify the following to display a series of * rather than the pin ie **** not 1234
 user_pin_entry = tk.Entry(win, text='PIN Number',
-                          textvariable=pin_number_var)
+                          textvariable=pin_number_var, show="*")
 
 # set the user file by default to an empty string
 user_file = ''
@@ -72,9 +70,49 @@ def log_in(event):
     global user
     global pin_number_var
     global user_file
-    global user_num_entry
+    global user_number_var
 
     # Create the filename from the entered account number with '.txt' on the end
+    filename = user_number_var.get()+".txt"
+    file = None
+    user_exists= True
+    try:
+        file = open(filename, "r")
+    except:
+        messagebox.showinfo("Error", "Invalid user number, please try again!")
+        user = MoneyManager()
+        user_pin_entry.focus_set()
+        pin_number_var.set('')
+        user_exists = False
+    if user_exists:
+        file_info_list = file.read().split('\n')
+        file.close()
+        user.user_number = file_info_list[0]
+        user.pin_number = file_info_list[1]
+        user.balance = file_info_list[2]
+        if user.pin_number != pin_number_var.get():
+            raise Exception(
+                messagebox.showinfo("Error", "Invalid pin number")
+            )
+            user = MoneyManager()
+        else:    
+            counter = 0
+            item_list = []
+            amount_list = []
+            for item in file_info_list[3:]:
+                if(counter % 2 == 0 and item.strip()):
+                    item_list.append(item)
+                elif(item.strip()):
+                    amount_list.append(float(item))
+                counter += 1
+            counter = 0
+            while counter < len(item_list):
+                user.transaction_list.append((
+                    item_list[counter],
+                    amount_list[counter]
+                ))
+                counter +=1
+            remove_all_widgets()
 
     # Try to open the account file for reading
 
@@ -253,14 +291,18 @@ def create_login_screen():
     # Login button here. 'bg' and 'activebackground' should be 'green'). Button calls 'log_in' function.
     # ----- Set column & row weights -----
     # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
-    cancel_button = Button(text="Cancel/Clear", width=8,height=4, bg="red",activebackground="red")
+    cancel_button = Button(text="Cancel/Clear", width=8,
+                           height=4, bg="red", activebackground="red")
     cancel_button.grid(row=5, column=0)
     cancel_button.bind('<Button-1>', clear_pin_entry)
     button0 = Button(text="0", width=8, height=4)
     button0.grid(row=5, column=1)
     button0.bind('<Button-1>', handle_pin_button)
-    login_button = Button(text="Log In", width=8, height=4, bg="green",activebackground="green")
+    login_button = Button(text="Log In", width=8, height=4,
+                          bg="green", activebackground="green")
     login_button.grid(row=5, column=2)
+    login_button.bind('<Button-1>',log_in)
+
 
 def create_user_screen():
     '''Function to create the user screen.'''

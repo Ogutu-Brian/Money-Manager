@@ -2,7 +2,6 @@ class MoneyManager(object):
     def __init__(self):
         '''Constructor to set username to '', pin_number to an empty string,
            balance to 0.0, and transaction_list to an empty list.'''
-        self.username = ''
         self.user_number = -1
         self.pin_number = ''
         self.balance = 0.0

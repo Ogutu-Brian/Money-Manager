@@ -91,10 +91,10 @@ def log_in(event):
         user.pin_number = file_info_list[1]
         user.balance = file_info_list[2]
         if user.pin_number != pin_number_var.get():
+            user = MoneyManager()
             raise Exception(
                 messagebox.showinfo("Error", "Invalid pin number")
             )
-            user = MoneyManager()
         else:    
             counter = 0
             item_list = []

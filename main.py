@@ -50,10 +50,10 @@ user = MoneyManager()
 # ---------- Button Handlers for Login Screen ----------
 
 
-def clear_pin_entry(event):
+def clear_pin_entry():
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
     # Clear the pin number entry here
-
+    pin_number_var.set('')
 
 def handle_pin_button(event):
     '''Function to add the number of the button clicked to the PIN number entry.'''
@@ -240,7 +240,7 @@ def create_login_screen():
     # ----- Set column & row weights -----
     # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
     cancel_button = Button(text="Cancel/Clear", width=8,
-                           height=4, command=win.destroy, bg="red")
+                           height=4, command=clear_pin_entry, bg="red")
     cancel_button.grid(row=5, column=0)
     button0 = Button(text="0", width=8, height=4)
     button0.grid(row=5, column=1)

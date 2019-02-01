@@ -248,19 +248,18 @@ def create_login_screen():
     button9.grid(row=4, column=2)
     button9.bind('<Button-1>', handle_pin_button)
     # ----- Row 5 -----
-    # Cancel/Clear button here. 'bg' and 'activebackground' should be 'red'. But calls 'clear_pin_entry' function.
+    # Cancel/Clear button here. 'bg' and 'activebackground' should be 'red'. Button calls 'clear_pin_entry' function.
     # Button 0 here
     # Login button here. 'bg' and 'activebackground' should be 'green'). Button calls 'log_in' function.
     # ----- Set column & row weights -----
     # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
-    cancel_button = Button(text="Cancel/Clear", width=8,
-                           height=4, bg="red")
+    cancel_button = Button(text="Cancel/Clear", width=8,height=4, bg="red",activebackground="red")
     cancel_button.grid(row=5, column=0)
     cancel_button.bind('<Button-1>', clear_pin_entry)
     button0 = Button(text="0", width=8, height=4)
     button0.grid(row=5, column=1)
     button0.bind('<Button-1>', handle_pin_button)
-    login_button = Button(text="Log In", width=8, height=4, bg="green")
+    login_button = Button(text="Log In", width=8, height=4, bg="green",activebackground="green")
     login_button.grid(row=5, column=2)
 
 def create_user_screen():

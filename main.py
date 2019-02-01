@@ -21,8 +21,6 @@ user_number_entry.focus_set()
 pin_number_var = tk.StringVar()
 # This is set as a default for ease of testing
 pin_number_var.set('7890')
-
-# Modify the following to display a series of * rather than the pin ie **** not 1234
 user_pin_entry = tk.Entry(win, text='PIN Number',
                           textvariable=pin_number_var, show="*")
 
@@ -51,14 +49,11 @@ user = MoneyManager()
 
 def clear_pin_entry(event):
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
-    # Clear the pin number entry here
     pin_number_var.set('')
 
 
 def handle_pin_button(event):
     '''Function to add the number of the button clicked to the PIN number entry.'''
-    # Limit to 4 chars in length
-    # Set the new pin number on the pin_number_var
     pin_string = pin_number_var.get()
     button_argument = event.widget['text']
     if(len(pin_string) < 4):
@@ -71,11 +66,9 @@ def log_in(event):
     global pin_number_var
     global user_file
     global user_number_var
-
-    # Create the filename from the entered account number with '.txt' on the end
     filename = user_number_var.get()+".txt"
     file = None
-    user_exists= True
+    user_exists = True
     try:
         file = open(filename, "r")
     except:
@@ -95,7 +88,7 @@ def log_in(event):
             raise Exception(
                 messagebox.showinfo("Error", "Invalid pin number")
             )
-        else:    
+        else:
             counter = 0
             item_list = []
             amount_list = []
@@ -111,35 +104,8 @@ def log_in(event):
                     item_list[counter],
                     amount_list[counter]
                 ))
-                counter +=1
+                counter += 1
             remove_all_widgets()
-
-    # Try to open the account file for reading
-
-    # Open the account file for reading
-
-    # First line is account number
-
-    # Second line is PIN number, raise exceptionk if the PIN entered doesn't match account PIN read
-
-    # Read third and fourth lines (balance and interest rate)
-
-    # Section to read account transactions from file - start an infinite 'do-while' loop here
-
-    # Attempt to read a line from the account file, break if we've hit the end of the file. If we
-    # read a line then it's the transaction type, so read the next line which will be the transaction amount.
-    # and then create a tuple from both lines and add it to the account's transaction_list
-
-    # Close the file now we're finished with it
-
-    # Catch exception if we couldn't open the file or PIN entered did not match account PIN
-
-    # Show error messagebox and & reset BankAccount object to default...
-
-    #  ...also clear PIN entry and change focus to account number entry
-
-    # Got here without raising an exception? Then we can log in - so remove the widgets and display the account screen
-
 # ---------- Button Handlers for User Screen ----------
 
 
@@ -240,20 +206,12 @@ def create_login_screen():
     '''Function to create the login screen.'''
     win.geometry('500x660')
     win.winfo_toplevel().title('FedUni Money Manager')
-    # ----- Row 0 -----
-    # 'FedUni Money Manager' label here. Font size is 28.
     Label(text="FedUni Money Manager", font=("Helvetica", 28)).grid(
         row=0, column=0, columnspan=3)
-    # ----- Row 1 -----
-    # Acount Number / Pin label here
-    # Account number entry here
-    # Account pin entry here
     Label(text="User Number/ PIN", font=("Helvetica", 15),
           justify=LEFT).grid(row=1, column=0)
     user_number_entry.grid(row=1, column=1)
     user_pin_entry.grid(row=1, column=2)
-    # ----- Row 2 -----
-    # Buttons 1, 2 and 3 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button1 = Button(text="1", width=8, height=4)
     button1.grid(row=2, column=0)
     button1.bind('<Button-1>', handle_pin_button)
@@ -263,8 +221,6 @@ def create_login_screen():
     button3 = Button(text="3", width=8, height=4)
     button3.grid(row=2, column=2)
     button3.bind('<Button-1>', handle_pin_button)
-    # ----- Row 3 -----
-    # Buttons 4, 5 and 6 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button4 = Button(text="4", width=8, height=4)
     button4.grid(row=3, column=0)
     button4.bind('<Button-1>', handle_pin_button)
@@ -274,8 +230,6 @@ def create_login_screen():
     button6 = Button(text="6", width=8, height=4)
     button6.grid(row=3, column=2)
     button6.bind('<Button-1>', handle_pin_button)
-    # ----- Row 4 -----
-    # Buttons 7, 8 and 9 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button7 = Button(text="7", width=8, height=4)
     button7.grid(row=4, column=0)
     button7.bind('<Button-1>', handle_pin_button)
@@ -285,12 +239,6 @@ def create_login_screen():
     button9 = Button(text="9", width=8, height=4)
     button9.grid(row=4, column=2)
     button9.bind('<Button-1>', handle_pin_button)
-    # ----- Row 5 -----
-    # Cancel/Clear button here. 'bg' and 'activebackground' should be 'red'. Button calls 'clear_pin_entry' function.
-    # Button 0 here
-    # Login button here. 'bg' and 'activebackground' should be 'green'). Button calls 'log_in' function.
-    # ----- Set column & row weights -----
-    # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
     cancel_button = Button(text="Cancel/Clear", width=8,
                            height=4, bg="red", activebackground="red")
     cancel_button.grid(row=5, column=0)
@@ -301,7 +249,7 @@ def create_login_screen():
     login_button = Button(text="Log In", width=8, height=4,
                           bg="green", activebackground="green")
     login_button.grid(row=5, column=2)
-    login_button.bind('<Button-1>',log_in)
+    login_button.bind('<Button-1>', log_in)
 
 
 def create_user_screen():

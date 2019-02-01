@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import (messagebox, StringVar, Label, LEFT, Button, OptionMenu)
+from tkinter import (messagebox, StringVar, Label, LEFT, Button, OptionMenu,Scrollbar)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -260,7 +260,7 @@ def create_user_screen():
     global amount_label
     global transaction_text_widget
     global balance_var
-    win.geometry('600x660')
+    win.geometry('500x660')
     # ----- Row 0 -----
     # FedUni Banking label here. Font size should be 24.
     Label(text="FedUni Money Manager", font=(
@@ -268,7 +268,7 @@ def create_user_screen():
     Label(text="User Number:"+" "+user.user_number,
           font=("Helvetica")).grid(row=1, column=0)
     Label(text="Balance: $"+user.balance,
-          font=("Helvetica")).grid(row=1, column=2)
+          font=("Helvetica")).grid(row=1, column=1)
     Label(text="AMount ($)", font=("Helvetica")).grid(row=2, column=0)
     Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
     logout_button = Button(text="Log Out", width=8, height=4)
@@ -282,6 +282,10 @@ def create_user_screen():
     choices = set(item_types)
     item_menu = OptionMenu(win, tkVar, *choices)
     item_menu.grid(row=3, column=1)
+    transaction_text_widget.grid(row=4,column=0,columnspan=5)
+    scrollbar = Scrollbar(win,command=transaction_text_widget.yview)
+    scrollbar.grid(row=4,column=4,sticky='nsew')
+    transaction_text_widget['yscrollcommand']=scrollbar.set
     # ----- Row 1 -----
 
     # Account number label here

@@ -25,7 +25,8 @@ pin_number_var = tk.StringVar()
 pin_number_var.set('7890')
 
 # Modify the following to display a series of * rather than the pin ie **** not 1234
-user_pin_entry = tk.Entry(win, text='PIN Number', textvariable=pin_number_var,show="*")
+user_pin_entry = tk.Entry(win, text='PIN Number',
+                          textvariable=pin_number_var)
 
 # set the user file by default to an empty string
 user_file = ''
@@ -50,16 +51,21 @@ user = MoneyManager()
 # ---------- Button Handlers for Login Screen ----------
 
 
-def clear_pin_entry():
+def clear_pin_entry(event):
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
     # Clear the pin number entry here
     pin_number_var.set('')
 
+
 def handle_pin_button(event):
     '''Function to add the number of the button clicked to the PIN number entry.'''
     # Limit to 4 chars in length
-
     # Set the new pin number on the pin_number_var
+    pin_string = pin_number_var.get()
+    button_argument = event.widget['text']
+    if(len(pin_string) < 4):
+        user_pin_entry.insert(len(pin_string), button_argument)
+    print(pin_number_var.get())
 
 
 def log_in(event):
@@ -212,6 +218,7 @@ def create_login_screen():
     # ----- Row 2 -----
     # Buttons 1, 2 and 3 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button1 = Button(text="1", width=8, height=4)
+    button1.bind('<Button-1>', handle_pin_button)
     button1.grid(row=2, column=0)
     button2 = Button(text="2", width=8, height=4)
     button2.grid(row=2, column=1)
@@ -240,8 +247,9 @@ def create_login_screen():
     # ----- Set column & row weights -----
     # Set column and row weights. There are 5 columns and 6 rows (0..4 and 0..5 respectively)
     cancel_button = Button(text="Cancel/Clear", width=8,
-                           height=4, command=clear_pin_entry, bg="red")
+                           height=4, bg="red")
     cancel_button.grid(row=5, column=0)
+    cancel_button.bind('<Button-1>', clear_pin_entry)
     button0 = Button(text="0", width=8, height=4)
     button0.grid(row=5, column=1)
     login_button = Button(text="Log In", width=8, height=4, bg="green")

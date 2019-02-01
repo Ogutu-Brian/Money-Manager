@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import (messagebox, StringVar, Label, LEFT,
-                     DISABLED,NORMAL, Button, OptionMenu, Scrollbar)
+                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure

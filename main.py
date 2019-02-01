@@ -218,28 +218,36 @@ def create_login_screen():
     # ----- Row 2 -----
     # Buttons 1, 2 and 3 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button1 = Button(text="1", width=8, height=4)
-    button1.bind('<Button-1>', handle_pin_button)
     button1.grid(row=2, column=0)
+    button1.bind('<Button-1>', handle_pin_button)
     button2 = Button(text="2", width=8, height=4)
     button2.grid(row=2, column=1)
+    button2.bind('<Button-1>', handle_pin_button)
     button3 = Button(text="3", width=8, height=4)
     button3.grid(row=2, column=2)
+    button3.bind('<Button-1>', handle_pin_button)
     # ----- Row 3 -----
     # Buttons 4, 5 and 6 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button4 = Button(text="4", width=8, height=4)
     button4.grid(row=3, column=0)
+    button4.bind('<Button-1>', handle_pin_button)
     button5 = Button(text="5", width=8, height=4)
     button5.grid(row=3, column=1)
+    button5.bind('<Button-1>', handle_pin_button)
     button6 = Button(text="6", width=8, height=4)
     button6.grid(row=3, column=2)
+    button6.bind('<Button-1>', handle_pin_button)
     # ----- Row 4 -----
     # Buttons 7, 8 and 9 here. Buttons are bound to 'handle_pin_button' function via '<Button-1>' event.
     button7 = Button(text="7", width=8, height=4)
     button7.grid(row=4, column=0)
+    button7.bind('<Button-1>', handle_pin_button)
     button8 = Button(text="8", width=8, height=4)
     button8.grid(row=4, column=1)
+    button8.bind('<Button-1>', handle_pin_button)
     button9 = Button(text="9", width=8, height=4)
     button9.grid(row=4, column=2)
+    button9.bind('<Button-1>', handle_pin_button)
     # ----- Row 5 -----
     # Cancel/Clear button here. 'bg' and 'activebackground' should be 'red'. But calls 'clear_pin_entry' function.
     # Button 0 here
@@ -252,9 +260,9 @@ def create_login_screen():
     cancel_button.bind('<Button-1>', clear_pin_entry)
     button0 = Button(text="0", width=8, height=4)
     button0.grid(row=5, column=1)
+    button0.bind('<Button-1>', handle_pin_button)
     login_button = Button(text="Log In", width=8, height=4, bg="green")
     login_button.grid(row=5, column=2)
-
 
 def create_user_screen():
     '''Function to create the user screen.'''

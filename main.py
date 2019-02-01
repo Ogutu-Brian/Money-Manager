@@ -268,8 +268,8 @@ def create_user_screen():
         "Helvetica", 22)).grid(row=0, columnspan=5)
     Label(text="User Number:"+" "+user.user_number,
           font=("Helvetica")).grid(row=1, column=0)
-    Label(text="Balance: $"+user.balance,
-          font=("Helvetica")).grid(row=1, column=1)
+    balance_var.set("Balance: $"+user.balance)
+    balance_label.grid(row=1, column=1)
     Label(text="AMount ($)", font=("Helvetica")).grid(row=2, column=0)
     Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
     logout_button = Button(text="Log Out", width=8, height=4)

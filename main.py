@@ -11,10 +11,8 @@ import matplotlib.pyplot as plt
 from moneymanager import MoneyManager
 
 win = tk.Tk()
-
-# Set window size here to '540 x 640'
-
-# Set the window title to 'FedUni Money Manager'
+win.geometry('540x640')
+win.title('FedUni Money Manager')
 
 # The user number and associated variable
 user_number_var = tk.StringVar()

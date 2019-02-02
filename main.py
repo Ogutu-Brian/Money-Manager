@@ -4,8 +4,6 @@ from tkinter import (messagebox, StringVar, Label, LEFT,
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-from collections import defaultdict
-from pprint import pprint
 import matplotlib.pyplot as plt
 from moneymanager import MoneyManager, item_types
 
@@ -106,6 +104,7 @@ def log_in(event):
                 counter += 1
             remove_all_widgets()
             create_user_screen()
+            plot_spending_graph()
 
 
 def save_and_log_out(event):
@@ -139,6 +138,7 @@ def perform_deposit(event):
     balance_var.set("Balance: $"+str(user.balance))
     user.save_to_file()
     amount_entry.delete(0, END)
+    plot_spending_graph()
 
 
 def perform_transaction(event):
@@ -156,6 +156,7 @@ def perform_transaction(event):
     balance_var.set("Balance: $"+str(user.balance))
     user.save_to_file()
     amount_entry.delete(0, END)
+    plot_spending_graph()
 
 
 def remove_all_widgets():
@@ -170,18 +171,26 @@ def read_line_from_user_file():
        Note: The user_file must be open to read from for this function to succeed.'''
     global user_file
     file_info_list = []
-    user_file = open(user.user_number+".txt", "r")
+    user_file = open(str(user.user_number)+".txt", "r")
+    counter = 0
     for item in user_file.read().split('\n'):
-        if(item.strip()):
+        if(item.strip() and counter % 2 == 0):
             file_info_list.append(item)
+        counter += 1
+    user_file.close()
     return file_info_list
 
 
 def plot_spending_graph():
     '''Function to plot the user spending here.'''
     data_set = read_line_from_user_file()[3:]
-    plt.hist(data_set, color='blue', edgecolor='black', bins=int(180/5))
-    plt.show()
+    figure = Figure(figsize=(5, 4), dpi=100)
+    canvas = FigureCanvasTkAgg(figure, master=win)
+    canvas.get_tk_widget().grid(row=5, column=0, columnspan=4)
+    plotting = figure.gca()
+    plotting.hist(data_set, bins=int(180/5))
+    plotting.set_xlabel("Spendings")
+    plotting.set_ylabel("items")
 
 
 def create_login_screen():
@@ -247,11 +256,9 @@ def create_login_screen():
 
 def create_user_screen():
     '''Function to create the user screen.'''
-    global amount_text
-    global amount_label
     global transaction_text_widget
     global balance_var
-    win.geometry('500x660')
+    win.geometry('550x700')
     Label(text="FedUni Money Manager", font=(
         "Helvetica", 22)).grid(row=0, columnspan=5)
     Label(text="User Number:"+" "+user.user_number,

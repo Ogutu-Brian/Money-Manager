@@ -1,4 +1,5 @@
 from tkinter import messagebox
+#item types that will be used for trsnsactions
 item_types = ["food", "rent", "bills", "entertainment", "other"]
 
 

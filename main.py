@@ -179,6 +179,9 @@ def read_line_from_user_file():
 
 def plot_spending_graph():
     '''Function to plot the user spending here.'''
+    data_set = read_line_from_user_file()[3:]
+    plt.hist(data_set, color='blue', edgecolor='black', bins=int(180/5))
+    plt.show()
 
 
 def create_login_screen():

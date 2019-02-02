@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import (messagebox, StringVar, Label, LEFT,
-                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar,END,FIRST,LAST)
+                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar, END, FIRST, LAST)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -130,7 +130,8 @@ def perform_deposit(event):
     transaction_text_widget.config(state=DISABLED)
     balance_var.set("Balance: $"+str(user.balance))
     user.save_to_file()
-    amount_entry.delete(0,END)
+    amount_entry.delete(0, END)
+
 
 def perform_transaction():
     '''Function to add the entry the amount in the amount entry from the user balance and add an entry to the transaction list.'''

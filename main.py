@@ -122,7 +122,6 @@ def perform_deposit(event):
     global amount_entry
     global balance_label
     global balance_var
-    file_name = user.user_number+".txt"
     user.deposit_funds(amount_entry.get())
     transaction_text_widget.config(state=NORMAL)
     transaction_text_widget.delete(1.0, END)
@@ -133,13 +132,21 @@ def perform_deposit(event):
     amount_entry.delete(0, END)
 
 
-def perform_transaction():
+def perform_transaction(event):
     '''Function to add the entry the amount in the amount entry from the user balance and add an entry to the transaction list.'''
     global user
     global amount_entry
     global balance_label
     global balance_var
     global entry_type
+    user.add_entry(amount_entry.get(), tkVar.get())
+    transaction_text_widget.config(state=NORMAL)
+    transaction_text_widget.delete(1.0, END)
+    transaction_text_widget.insert(END, user.get_transaction_string())
+    transaction_text_widget.config(state=DISABLED)
+    balance_var.set("Balance: $"+str(user.balance))
+    user.save_to_file()
+    amount_entry.delete(0, END)
 
 
 def remove_all_widgets():
@@ -243,6 +250,7 @@ def create_user_screen():
     deposit_button.bind('<Button-1>', perform_deposit)
     entry_button = Button(text="Add Entry", width=8, height=4)
     entry_button.grid(row=3, column=3)
+    entry_button.bind('<Button-1>',perform_transaction)
     amount_entry.grid(row=2, column=1)
     tkVar.set("Choose Entry")
     choices = set(item_types)

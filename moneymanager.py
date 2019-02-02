@@ -15,17 +15,36 @@ class MoneyManager(object):
         '''Function to add and entry an amount to the tool. Raises an
            exception if it receives a value for amount that cannot be cast to float. Raises an exception
            if the entry_type is not valid - i.e. not food, rent, bills, entertainment or other'''
+        valid = True
         try:
             amount = float(amount)
         except:
-            print("The amont cannot be cast to float")
-        if(entry_type.lower() not in item_types and entry_type.lower() != 'deposit'):
-            print("The item type is invalid")
-        else:
-            if((self.balance - amount) < 0.0):
-                print("You do not have sufficient funds to do the transaction")
+            valid = False
+            messagebox.showerror(
+                "Transaction Error",
+                "The amont cannot be cast to float"
+            )
+        if valid:
+            if(entry_type.lower() not in item_types):
+                raise Exception(
+                    messagebox.showerror(
+                        "Transaction Error",
+                        "The item type is invalid"
+                    )
+                )
             else:
-                self.balance -= amount
+                if((self.balance - amount) < 0.0):
+                    raise Exception(
+                        messagebox.showerror(
+                            "Transaction Error",
+                            "You do not have sufficient funds to do the transaction"
+                        )
+                    )
+                else:
+                    self.balance -= amount
+                    self.transaction_list.append(
+                        (entry_type, amount)
+                    )
 
     def deposit_funds(self, amount):
         '''Function to deposit an amount to the user balance. Raises an

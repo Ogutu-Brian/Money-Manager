@@ -154,8 +154,16 @@ def perform_transaction(event):
     global balance_label
     global balance_var
     global entry_type
-    valid_type,correct_amount=user.add_entry(amount_entry.get(), tkVar.get())
-    if(not valid_type):
+    valid_input,valid_type,correct_amount=user.add_entry(
+        amount_entry.get(), 
+        tkVar.get()
+        )
+    if(not valid_input):
+        messagebox.showerror(
+            "Transaction Error",
+            "Invalid input"
+            )
+    elif(not valid_type):
         messagebox.showerror(
             "Transaction Error",
             "The item type is invalid"

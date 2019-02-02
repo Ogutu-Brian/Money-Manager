@@ -16,18 +16,14 @@ class MoneyManager(object):
         '''Function to add and entry an amount to the tool. Raises an
            exception if it receives a value for amount that cannot be cast to float. Raises an exception
            if the entry_type is not valid - i.e. not food, rent, bills, entertainment or other'''
-        valid = True
         correct_amount = True
         valid_type = True
+        valid_input = True
         try:
             amount = float(amount)
         except:
-            valid = False
-            messagebox.showerror(
-                "Transaction Error",
-                "The amont cannot be cast to float"
-            )
-        if valid:
+            valid_input = False
+        if valid_input:
             if(entry_type.lower() not in item_types):
                 valid_type = False
             else:
@@ -38,7 +34,7 @@ class MoneyManager(object):
                     self.transaction_list.append(
                         (entry_type, amount)
                     )
-        return valid_type, correct_amount
+        return valid_input, valid_type, correct_amount
 
     def deposit_funds(self, amount):
         '''Function to deposit an amount to the user balance. Raises an

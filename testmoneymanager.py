@@ -27,12 +27,18 @@ class TestMoneyManager(unittest.TestCase):
         self.assertEqual(self.user.balance, 1)
 
     def test_illegal_entry_amount(self):
-        '''Tests that adding illegal entry type raises an exception'''
-        valid_type, correct_amount = self.user.add_entry(90, 'banana')
-        self.assertEqual((valid_type, correct_amount), (False, True))
+        '''Tets that withdrawing an illegal amount raises an exception'''
+        valid_input, valid_type, correct_amount = self.user.add_entry(
+            'banana', item_types[1])
+        self.assertEqual(
+            (valid_input, valid_type, correct_amount), (False, True, True))
 
     def test_illegal_entry_type(self):
-        pass
+        '''Tests that adding illegal entry type raises an exception'''
+        valid_input, valid_type, correct_amount = self.user.add_entry(
+            90, 'banana')
+        self.assertEqual(
+            (valid_input, valid_type, correct_amount), (True, False, True))
 
     def test_insufficient_funds_entry(self):
         pass

@@ -16,12 +16,12 @@ class TestMoneyManager(unittest.TestCase):
         self.assertEqual(2000, self.user.balance)
 
     def test_illegal_deposit_raises_exception(self):
-        '''Tests that that depositing a value that is not a float results into 
+        '''Tests that that depositing a value that is not a float results into
         an exception being raised'''
         self.assertEqual(self.user.deposit_funds("4dssjd"), False)
 
     def test_legal_entry(self):
-        '''Tests that adding a new entry with a legal amount subtracts the funds from 
+        '''Tests that adding a new entry with a legal amount subtracts the funds from
         the balance'''
         self.user.add_entry(999, item_types[0])
         self.assertEqual(self.user.balance, 1)
@@ -41,7 +41,11 @@ class TestMoneyManager(unittest.TestCase):
             (valid_input, valid_type, correct_amount), (True, False, True))
 
     def test_insufficient_funds_entry(self):
-        pass
+        '''Tests when a user tries to spend more than the account balance'''
+        valid_input, valid_type, correct_amount = self.user.add_entry(
+            1001, item_types[0])
+        self.assertEqual(
+            (valid_input, valid_type, correct_amount), (True, True, False))
 
 
 unittest.main()

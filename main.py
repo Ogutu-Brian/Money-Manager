@@ -169,7 +169,12 @@ def read_line_from_user_file():
     '''Function to read a line from the users file but not the last newline character.
        Note: The user_file must be open to read from for this function to succeed.'''
     global user_file
-    return user_file.readline()[0:-1]
+    file_info_list = []
+    user_file = open(user.user_number+".txt", "r")
+    for item in user_file.read().split('\n'):
+        if(item.strip()):
+            file_info_list.append(item)
+    return file_info_list
 
 
 def plot_spending_graph():
@@ -254,7 +259,7 @@ def create_user_screen():
     Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
     logout_button = Button(text="Log Out", width=8, height=4)
     logout_button.grid(row=1, column=3)
-    logout_button.bind('<Button-1>',save_and_log_out)
+    logout_button.bind('<Button-1>', save_and_log_out)
     deposit_button = Button(text="Deposit", width=8, height=4)
     deposit_button.grid(row=2, column=3)
     deposit_button.bind('<Button-1>', perform_deposit)

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import (messagebox, StringVar, Label, LEFT,
-                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar,END)
+                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar, END)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -124,8 +124,8 @@ def perform_deposit(event):
     global balance_var
     user.deposit_funds(amount_entry.get())
     transaction_text_widget.config(state=NORMAL)
-    transaction_text_widget.delete(1.0,END)
-    transaction_text_widget.insert(END,user.get_transaction_string())
+    transaction_text_widget.delete(1.0, END)
+    transaction_text_widget.insert(END, user.get_transaction_string())
     transaction_text_widget.config(state=DISABLED)
     balance_var.set("Balance: $"+str(user.balance))
     amount_entry.setvar('')

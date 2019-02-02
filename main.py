@@ -154,15 +154,26 @@ def perform_transaction(event):
     global balance_label
     global balance_var
     global entry_type
-    user.add_entry(amount_entry.get(), tkVar.get())
-    transaction_text_widget.config(state=NORMAL)
-    transaction_text_widget.delete(1.0, END)
-    transaction_text_widget.insert(END, user.get_transaction_string())
-    transaction_text_widget.config(state=DISABLED)
-    balance_var.set("Balance: $"+str(user.balance))
-    user.save_to_file()
-    amount_entry.delete(0, END)
-    plot_spending_graph()
+    valid_type,correct_amount=user.add_entry(amount_entry.get(), tkVar.get())
+    if(not valid_type):
+        messagebox.showerror(
+            "Transaction Error",
+            "The item type is invalid"
+            )
+    elif(not correct_amount):
+        messagebox.showerror(
+            "Transaction Error",
+            "You do not have sufficient funds to do the transaction"
+            )
+    else:    
+        transaction_text_widget.config(state=NORMAL)
+        transaction_text_widget.delete(1.0, END)
+        transaction_text_widget.insert(END, user.get_transaction_string())
+        transaction_text_widget.config(state=DISABLED)
+        balance_var.set("Balance: $"+str(user.balance))
+        user.save_to_file()
+        amount_entry.delete(0, END)
+        plot_spending_graph()
 
 
 def remove_all_widgets():

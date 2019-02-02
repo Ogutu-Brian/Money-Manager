@@ -1,5 +1,5 @@
 from tkinter import messagebox
-#item types that will be used for trsnsactions
+# item types that will be used for trsnsactions
 item_types = ["food", "rent", "bills", "entertainment", "other"]
 
 
@@ -17,6 +17,8 @@ class MoneyManager(object):
            exception if it receives a value for amount that cannot be cast to float. Raises an exception
            if the entry_type is not valid - i.e. not food, rent, bills, entertainment or other'''
         valid = True
+        correct_amount = True
+        valid_type = True
         try:
             amount = float(amount)
         except:
@@ -27,25 +29,16 @@ class MoneyManager(object):
             )
         if valid:
             if(entry_type.lower() not in item_types):
-                raise Exception(
-                    messagebox.showerror(
-                        "Transaction Error",
-                        "The item type is invalid"
-                    )
-                )
+                valid_type = False
             else:
                 if((self.balance - amount) < 0.0):
-                    raise Exception(
-                        messagebox.showerror(
-                            "Transaction Error",
-                            "You do not have sufficient funds to do the transaction"
-                        )
-                    )
+                    correct_amount = False
                 else:
                     self.balance -= amount
                     self.transaction_list.append(
                         (entry_type, amount)
                     )
+        return valid_type, correct_amount
 
     def deposit_funds(self, amount):
         '''Function to deposit an amount to the user balance. Raises an
@@ -57,6 +50,7 @@ class MoneyManager(object):
             return True
         except:
             return False
+
     def get_transaction_string(self):
         '''Function to create and return a string of the transaction list. Each transaction
            consists of two lines - either the word "Deposit" or the entry type - food etc - on

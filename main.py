@@ -131,14 +131,20 @@ def perform_deposit(event):
     global balance_label
     global balance_var
     user.deposit_funds(amount_entry.get())
-    transaction_text_widget.config(state=NORMAL)
-    transaction_text_widget.delete(1.0, END)
-    transaction_text_widget.insert(END, user.get_transaction_string())
-    transaction_text_widget.config(state=DISABLED)
-    balance_var.set("Balance: $"+str(user.balance))
-    user.save_to_file()
-    amount_entry.delete(0, END)
-    plot_spending_graph()
+    if not user.deposit_funds(amount_entry.get()):
+        messagebox.showerror(
+            "Transaction Error",
+            "Please enter a valid amount"
+        )
+    else:
+        transaction_text_widget.config(state=NORMAL)
+        transaction_text_widget.delete(1.0, END)
+        transaction_text_widget.insert(END, user.get_transaction_string())
+        transaction_text_widget.config(state=DISABLED)
+        balance_var.set("Balance: $"+str(user.balance))
+        user.save_to_file()
+        amount_entry.delete(0, END)
+        plot_spending_graph()
 
 
 def perform_transaction(event):

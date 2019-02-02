@@ -15,7 +15,8 @@ class TestMoneyManager(unittest.TestCase):
         self.assertEqual(2000, self.user.balance)
 
     def test_illegal_deposit_raises_exception(self):
-        pass
+        """Tests for deposit that is not float"""
+        self.assertEqual(self.user.deposit_funds("4dssjd"), False)
 
     def test_legal_entry(self):
         pass

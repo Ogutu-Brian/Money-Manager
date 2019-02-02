@@ -54,10 +54,9 @@ class MoneyManager(object):
             amount = float(amount)
             self.balance += amount
             self.transaction_list.append(("Deposit", amount))
+            return True
         except:
-            messagebox.showerror("Transaction Error",
-                                 "Please enter a valid amount")
-
+            return False
     def get_transaction_string(self):
         '''Function to create and return a string of the transaction list. Each transaction
            consists of two lines - either the word "Deposit" or the entry type - food etc - on

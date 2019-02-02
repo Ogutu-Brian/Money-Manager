@@ -61,5 +61,5 @@ class MoneyManager(object):
         file.write(user_number)
         file.write(pin_number)
         file.write(balance)
-        file.write(self.get_transaction_string)
+        file.write(self.get_transaction_string())
         file.close()

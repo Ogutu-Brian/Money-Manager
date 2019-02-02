@@ -108,11 +108,20 @@ def log_in(event):
             create_user_screen()
 
 
-def save_and_log_out():
+def save_and_log_out(event):
     '''Function  to overwrite the user file with the current state of
        the user object (i.e. including any new transactions), remove
        all widgets and display the login screen.'''
     global user
+    user.save_to_file()
+    user_number_var.set('')
+    pin_number_var.set('')
+    user = MoneyManager()
+    transaction_text_widget.config(state=NORMAL)
+    transaction_text_widget.delete(1.0, END)
+    transaction_text_widget.config(state=DISABLED)
+    remove_all_widgets()
+    create_login_screen()
 
 
 def perform_deposit(event):
@@ -245,6 +254,7 @@ def create_user_screen():
     Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
     logout_button = Button(text="Log Out", width=8, height=4)
     logout_button.grid(row=1, column=3)
+    logout_button.bind('<Button-1>',save_and_log_out)
     deposit_button = Button(text="Deposit", width=8, height=4)
     deposit_button.grid(row=2, column=3)
     deposit_button.bind('<Button-1>', perform_deposit)

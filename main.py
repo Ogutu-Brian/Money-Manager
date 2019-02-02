@@ -45,8 +45,6 @@ transaction_text_widget = tk.Text(win, height=10, width=48)
 # The money manager object we will work with
 user = MoneyManager()
 
-# ---------- Button Handlers for Login Screen ----------
-
 
 def clear_pin_entry(event):
     '''Function to clear the PIN number entry when the Clear / Cancel button is clicked.'''
@@ -109,22 +107,12 @@ def log_in(event):
             remove_all_widgets()
             create_user_screen()
 
-# ---------- Button Handlers for User Screen ----------
-
 
 def save_and_log_out():
     '''Function  to overwrite the user file with the current state of
        the user object (i.e. including any new transactions), remove
        all widgets and display the login screen.'''
     global user
-
-    # Save the account with any new transactions
-
-    # Reset the bank acount object
-
-    # Reset the account number and pin to blank
-
-    # Remove all widgets and display the login screen again
 
 
 def perform_deposit():
@@ -135,24 +123,6 @@ def perform_deposit():
     global balance_label
     global balance_var
 
-    # Try to increase the account balance and append the deposit to the account file
-
-    # Get the cash amount to deposit. Note: We check legality inside account's deposit method
-
-    # Deposit funds
-
-    # Update the transaction widget with the new transaction by calling account.get_transaction_string()
-    # Note: Configure the text widget to be state='normal' first, then delete contents, then instert new
-    #       contents, and finally configure back to state='disabled' so it cannot be user edited.
-
-    # Change the balance label to reflect the new balance
-
-    # Clear the amount entry
-
-    # Update the interest graph with our new balance
-
-    # Catch and display exception as a 'showerror' messagebox with a title of 'Transaction Error' and the text of the exception
-
 
 def perform_transaction():
     '''Function to add the entry the amount in the amount entry from the user balance and add an entry to the transaction list.'''
@@ -161,26 +131,6 @@ def perform_transaction():
     global balance_label
     global balance_var
     global entry_type
-
-    # Try to decrease the account balance and append the deposit to the account file
-
-    # Get the cash amount to use. Note: We check legality inside account's withdraw_funds method
-
-    # Get the type of entry that will be added ie rent etc
-
-    # Withdraw funds from the balance
-
-    # Update the transaction widget with the new transaction by calling user.get_transaction_string()
-    # Note: Configure the text widget to be state='normal' first, then delete contents, then instert new
-    #       contents, and finally configure back to state='disabled' so it cannot be user edited.
-
-    # Change the balance label to reflect the new balance
-
-    # Clear the amount entry
-
-    # Update the graph
-
-    # Catch and display any returned exception as a messagebox 'showerror'
 
 
 def remove_all_widgets():
@@ -199,12 +149,8 @@ def read_line_from_user_file():
 
 def plot_spending_graph():
     '''Function to plot the user spending here.'''
-    # YOUR CODE to generate the x and y lists here which will be plotted
-
-    # Your code to display the graph on the screen here - do this last
 
 
-# ---------- UI Drawing Functions ----------
 def create_login_screen():
     '''Function to create the login screen.'''
     win.geometry('500x660')
@@ -262,8 +208,6 @@ def create_user_screen():
     global transaction_text_widget
     global balance_var
     win.geometry('500x660')
-    # ----- Row 0 -----
-    # FedUni Banking label here. Font size should be 24.
     Label(text="FedUni Money Manager", font=(
         "Helvetica", 22)).grid(row=0, columnspan=5)
     Label(text="User Number:"+" "+user.user_number,
@@ -288,29 +232,7 @@ def create_user_screen():
     scrollbar.grid(row=4, column=4, sticky='nsew')
     transaction_text_widget['yscrollcommand'] = scrollbar.set
     transaction_text_widget.config(state=DISABLED)
-    # NOTE: Bind Deposit and Withdraw buttons via the command attribute to the relevant deposit and withdraw
-    #       functions in this file. If we "BIND" these buttons then the button being pressed keeps looking as
-    #       if it is still pressed if an exception is raised during the deposit or withdraw operation, which is
-    #       offputting.
-    # ----- Row 4 -----
-
-    # Declare scrollbar (text_scrollbar) here (BEFORE transaction text widget)
-
-    # Add transaction Text widget and configure to be in 'disabled' mode so it cannot be edited.
-    # Note: Set the yscrollcommand to be 'text_scrollbar.set' here so that it actually scrolls the Text widget
-    # Note: When updating the transaction text widget it must be set back to 'normal mode' (i.e. state='normal') for it to be edited
-
-    # Now add the scrollbar and set it to change with the yview of the text widget
-
-    # ----- Row 5 - Graph -----
-
-    # Call plot_interest_graph() here to display the graph
-
-    # ----- Set column & row weights -----
-
-    # Set column and row weights here - there are 6 rows and 5 columns (numbered 0 through 4 not 1 through 5!)
 
 
-# ---------- Display Login Screen & Start Main loop ----------
 create_login_screen()
 win.mainloop()

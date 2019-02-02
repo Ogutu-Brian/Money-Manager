@@ -250,7 +250,7 @@ def create_user_screen():
     deposit_button.bind('<Button-1>', perform_deposit)
     entry_button = Button(text="Add Entry", width=8, height=4)
     entry_button.grid(row=3, column=3)
-    entry_button.bind('<Button-1>',perform_transaction)
+    entry_button.bind('<Button-1>', perform_transaction)
     amount_entry.grid(row=2, column=1)
     tkVar.set("Choose Entry")
     choices = set(item_types)

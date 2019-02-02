@@ -1,3 +1,4 @@
+from tkinter import messagebox
 item_types = ["food", "rent", "bills", "entertainment", "other"]
 
 
@@ -20,9 +21,6 @@ class MoneyManager(object):
             print("The amont cannot be cast to float")
         if(entry_type.lower() not in item_types and entry_type.lower() != 'deposit'):
             print("The item type is invalid")
-        elif(entry_type.lower() == "deposit"):
-            self.deposit_funds(amount)
-            self.transaction_list.append((entry_type, amount))
         else:
             if((self.balance - amount) < 0.0):
                 print("You do not have sufficient funds to do the transaction")
@@ -34,9 +32,11 @@ class MoneyManager(object):
            exception if it receives a value that cannot be cast to float. '''
         try:
             amount = float(amount)
+            self.balance += amount
+            self.transaction_list.append(("Deposit", amount))
         except:
-            print("The amount cannot be cast to float")
-        self.balance += amount
+            messagebox.showerror("Transaction Error",
+                                 "Please enter a valid amount")
 
     def get_transaction_string(self):
         '''Function to create and return a string of the transaction list. Each transaction

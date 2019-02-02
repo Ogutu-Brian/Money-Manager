@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import (messagebox, StringVar, Label, LEFT,
-                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar)
+                     DISABLED, NORMAL, Button, OptionMenu, Scrollbar,END)
 from pylab import plot, show, xlabel, ylabel
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -71,7 +71,7 @@ def log_in(event):
     try:
         file = open(filename, "r")
     except:
-        messagebox.showinfo("Error", "Invalid user number, please try again!")
+        messagebox.showerror("Error", "Invalid user number, please try again!")
         user = MoneyManager()
         user_pin_entry.focus_set()
         pin_number_var.set('')
@@ -81,11 +81,11 @@ def log_in(event):
         file.close()
         user.user_number = file_info_list[0]
         user.pin_number = file_info_list[1]
-        user.balance = file_info_list[2]
+        user.balance = float(file_info_list[2])
         if user.pin_number != pin_number_var.get():
             user = MoneyManager()
             raise Exception(
-                messagebox.showinfo("Error", "Invalid pin number")
+                messagebox.showerror("Error", "Invalid pin number")
             )
         else:
             counter = 0
@@ -115,13 +115,20 @@ def save_and_log_out():
     global user
 
 
-def perform_deposit():
+def perform_deposit(event):
     '''Function to add a deposit for the amount in the amount entry to the
        user's transaction list.'''
     global user
     global amount_entry
     global balance_label
     global balance_var
+    user.deposit_funds(amount_entry.get())
+    transaction_text_widget.config(state=NORMAL)
+    transaction_text_widget.delete(1.0,END)
+    transaction_text_widget.insert(END,user.get_transaction_string())
+    transaction_text_widget.config(state=DISABLED)
+    balance_var.set("Balance: $"+str(user.balance))
+    amount_entry.setvar('')
 
 
 def perform_transaction():
@@ -212,7 +219,7 @@ def create_user_screen():
         "Helvetica", 22)).grid(row=0, columnspan=5)
     Label(text="User Number:"+" "+user.user_number,
           font=("Helvetica")).grid(row=1, column=0)
-    balance_var.set("Balance: $"+user.balance)
+    balance_var.set("Balance: $"+str(user.balance))
     balance_label.grid(row=1, column=1)
     Label(text="AMount ($)", font=("Helvetica")).grid(row=2, column=0)
     Label(text="Entry Type", font=("Helvetica")).grid(row=3, column=0)
@@ -220,6 +227,7 @@ def create_user_screen():
     logout_button.grid(row=1, column=3)
     deposit_button = Button(text="Deposit", width=8, height=4)
     deposit_button.grid(row=2, column=3)
+    deposit_button.bind('<Button-1>', perform_deposit)
     entry_button = Button(text="Add Entry", width=8, height=4)
     entry_button.grid(row=3, column=3)
     amount_entry.grid(row=2, column=1)
